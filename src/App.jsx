@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import PopularMenu from "./components/PopularMenu";
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import MoviesPopular from './components/MoviesPopular';
 import MoviesPopularNew from './components/MoviesPopularNew';
 
