@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const MoviesPopularNew = () => {
+const MoviesTopRatedNew = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('popularity.desc');
@@ -19,10 +19,7 @@ const MoviesPopularNew = () => {
   // Platform mapping
   const platforms = {
     'netflix': { name: 'Netflix', icon: '📺', id: 8 },
-   
     'disney': { name: 'Disney+', icon: '🎭', id: 2 },
-    
-    
   };
 
   // Component mount olduğunda sadece bir kez çalışır
@@ -33,7 +30,7 @@ const MoviesPopularNew = () => {
         // Genres ve movies'i paralel olarak çek
         const [genresResponse, moviesResponse] = await Promise.all([
           fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`),
-          fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}`)
+          fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}`)
         ]);
 
         const genresData = await genresResponse.json();
@@ -64,7 +61,7 @@ const MoviesPopularNew = () => {
     try {
       const genreParams = selectedGenres.length > 0 ? `&with_genres=${selectedGenres.join(',')}` : '';
       const response = await fetch(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}${genreParams}`
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}${genreParams}&vote_count.gte=100`
       );
       
       if (!response.ok) {
@@ -83,10 +80,6 @@ const MoviesPopularNew = () => {
           .filter(m => m.vote_average > 0)
           .sort((a, b) => a.vote_average - b.vote_average)
           .concat(sortedMovies.filter(m => m.vote_average === 0));
-      } else if (sortBy === "title.asc") {
-        sortedMovies = sortedMovies.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-      } else if (sortBy === "title.desc") {
-        sortedMovies = sortedMovies.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
       }
       setMovies(sortedMovies);
       setTotalPages(data.total_pages || 0);
@@ -194,7 +187,7 @@ const MoviesPopularNew = () => {
   if (loading) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <h2>Loading Popular Movies...</h2>
+        <h2>Loading Top Rated Movies...</h2>
       </div>
     );
   }
@@ -221,9 +214,8 @@ const MoviesPopularNew = () => {
             position: 'relative',
             zIndex: 10
           }}>
-            Popular Movies
+            Top Rated Movies
           </h1>
-          
           {/* Sort Section */}
           <div style={{ 
             marginBottom: '1.5rem',
@@ -446,16 +438,16 @@ const MoviesPopularNew = () => {
         <h1 style={{ 
           fontSize: '2rem', 
           fontWeight: 'bold', 
-          marginBottom: '2rem', 
+          marginBottom: '0.5rem',
+           marginTop:'4rem',
           color: '#333',
           textAlign: 'left',
           display: 'block',
           position: 'relative',
           zIndex: 10
         }}>
-          Popular Movies
+          Top Rated Movies
         </h1>
-        
         {/* Sort Section */}
         <div style={{ 
           marginBottom: '1.5rem',
@@ -719,7 +711,6 @@ const MoviesPopularNew = () => {
             </div>
           ))}
         </div>
-
         {/* Pagination */}
         {totalPages > 1 && (
           <div style={{ 
@@ -771,4 +762,4 @@ const MoviesPopularNew = () => {
   );
 };
 
-export default MoviesPopularNew;
+export default MoviesTopRatedNew;

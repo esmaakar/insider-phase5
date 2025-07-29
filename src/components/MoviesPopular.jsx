@@ -21,11 +21,9 @@ const MoviesPopular = () => {
   // Platform mapping
   const platforms = {
     'netflix': { name: 'Netflix', icon: '📺', id: 8 },
-    'amazon': { name: 'Amazon Prime', icon: '🛒', id: 119 },
+    
     'disney': { name: 'Disney+', icon: '🎭', id: 2 },
-    'hulu': { name: 'Hulu', icon: '📺', id: 15 },
-    'theaters': { name: 'In Theaters', icon: '🎬', id: 'theaters' },
-    'tv': { name: 'On TV', icon: '📺', id: 'tv' }
+    
   };
 
   useEffect(() => {
@@ -210,9 +208,7 @@ const MoviesPopular = () => {
         height: '100vh',
         overflowY: 'auto'
       }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '2rem', color: '#333' }}>
-          Popular Movies
-        </h1>
+        
         
         {/* Sort Section */}
         <div style={{ marginBottom: '2rem' }}>

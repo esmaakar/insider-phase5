@@ -8,13 +8,18 @@ import 'simplebar-react/dist/simplebar.min.css';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import MoviesPopular from './components/MoviesPopular';
 import MoviesPopularNew from './components/MoviesPopularNew';
+import MoviesUpcomingNew from './components/MoviesUpcomingNew';
+import MoviesTopRatedNew from './components/MoviesTopRatedNew';
+import TVShowsPopularNew from './components/TVShowsPopularNew';
+import TVShowsAiringTodayNew from './components/TVShowsAiringTodayNew';
+import TVShowsTopRatedNew from './components/TVShowsTopRatedNew';
 
 const MoviesUpcoming = () => <div style={{padding:32}}><h2>Upcoming Movies</h2></div>;
 const MoviesTopRated = () => <div style={{padding:32}}><h2>Top Rated Movies</h2></div>;
 const TVShowsPopular = () => <div style={{padding:32}}><h2>Popular TV Shows</h2></div>;
 const TVShowsAiringToday = () => <div style={{padding:32}}><h2>TV Shows Airing Today</h2></div>;
 const TVShowsOnTV = () => <div style={{padding:32}}><h2>TV Shows On TV</h2></div>;
-const TVShowsTopRated = () => <div style={{padding:32}}><h2>Top Rated TV Shows</h2></div>;
+// const TVShowsTopRated = () => <div style={{padding:32}}><h2>Top Rated TV Shows</h2></div>; // ARTIK GEREKSİZ
 
 function App() {
   const searchInputRef = useRef(null);
@@ -154,12 +159,12 @@ function App() {
             </>
           } />
           <Route path="/movies/popular" element={<MoviesPopularNew />} />
-          <Route path="/movies/upcoming" element={<MoviesUpcoming />} />
-          <Route path="/movies/top-rated" element={<MoviesTopRated />} />
-          <Route path="/tv/popular" element={<TVShowsPopular />} />
-          <Route path="/tv/airing-today" element={<TVShowsAiringToday />} />
+          <Route path="/movies/upcoming" element={<MoviesUpcomingNew />} />
+          <Route path="/movies/top-rated" element={<MoviesTopRatedNew />} />
+          <Route path="/tv/popular" element={<TVShowsPopularNew />} />
+          <Route path="/tv/airing-today" element={<TVShowsAiringTodayNew />} />
           <Route path="/tv/on-tv" element={<TVShowsOnTV />} />
-          <Route path="/tv/top-rated" element={<TVShowsTopRated />} />
+          <Route path="/tv/top-rated" element={<TVShowsTopRatedNew />} />
         </Routes>
       </SimpleBar>
     </Router>

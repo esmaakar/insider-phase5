@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const MoviesPopularNew = () => {
+const MoviesUpcomingNew = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('popularity.desc');
@@ -19,10 +19,7 @@ const MoviesPopularNew = () => {
   // Platform mapping
   const platforms = {
     'netflix': { name: 'Netflix', icon: '📺', id: 8 },
-   
     'disney': { name: 'Disney+', icon: '🎭', id: 2 },
-    
-    
   };
 
   // Component mount olduğunda sadece bir kez çalışır
@@ -30,10 +27,12 @@ const MoviesPopularNew = () => {
     const initializeData = async () => {
       setLoading(true);
       try {
+        const today = new Date().toISOString().split('T')[0];
+        const upcomingParams = `&primary_release_date.gte=${today}`;
         // Genres ve movies'i paralel olarak çek
         const [genresResponse, moviesResponse] = await Promise.all([
           fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`),
-          fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}`)
+          fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}${upcomingParams}`)
         ]);
 
         const genresData = await genresResponse.json();
@@ -62,9 +61,11 @@ const MoviesPopularNew = () => {
   const fetchMovies = async () => {
     setLoading(true);
     try {
+      const today = new Date().toISOString().split('T')[0];
+      const upcomingParams = `&primary_release_date.gte=${today}`;
       const genreParams = selectedGenres.length > 0 ? `&with_genres=${selectedGenres.join(',')}` : '';
       const response = await fetch(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}${genreParams}`
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&page=${page}${genreParams}${upcomingParams}`
       );
       
       if (!response.ok) {
@@ -194,7 +195,7 @@ const MoviesPopularNew = () => {
   if (loading) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <h2>Loading Popular Movies...</h2>
+        <h2>Loading Upcoming Movies...</h2>
       </div>
     );
   }
@@ -211,18 +212,7 @@ const MoviesPopularNew = () => {
           height: '100vh',
           overflowY: 'auto'
         }}>
-          <h1 style={{ 
-            fontSize: '2rem', 
-            fontWeight: 'bold', 
-            marginBottom: '2rem', 
-            color: '#333',
-            textAlign: 'left',
-            display: 'block',
-            position: 'relative',
-            zIndex: 10
-          }}>
-            Popular Movies
-          </h1>
+     
           
           {/* Sort Section */}
           <div style={{ 
@@ -446,14 +436,15 @@ const MoviesPopularNew = () => {
         <h1 style={{ 
           fontSize: '2rem', 
           fontWeight: 'bold', 
-          marginBottom: '2rem', 
+          marginBottom: '0.5rem', 
+          marginTop:'4rem',
           color: '#333',
           textAlign: 'left',
           display: 'block',
           position: 'relative',
           zIndex: 10
         }}>
-          Popular Movies
+          Upcoming Movies
         </h1>
         
         {/* Sort Section */}
@@ -771,4 +762,4 @@ const MoviesPopularNew = () => {
   );
 };
 
-export default MoviesPopularNew;
+export default MoviesUpcomingNew;
