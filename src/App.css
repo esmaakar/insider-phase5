@@ -1087,7 +1087,7 @@ body, .container, .main, .content {
   text-align: center;
 }
 .popular-card-score {
-  background: #062941;
+  background: #081c22;
   color: #fff;
   font-size: 0.95rem;
   font-weight: 700;
@@ -1100,11 +1100,11 @@ body, .container, .main, .content {
   position: absolute;
   left: 16px;
   bottom: -16px;
-  border: 3px solid #21d07a;
+  border: 3px solid #00d474;
   z-index: 2;
 }
 .popular-card-score.score-green {
-  border-color: #21d07a;
+  border-color: #00d474;
 }
 .popular-card-score.score-yellow {
   border-color: #d2d531;
@@ -1137,7 +1137,7 @@ body, .container, .main, .content {
   left: 10px;
   bottom: 10px;
   background: #081c22;
-  color: #21d07a;
+  color: #fff;
   font-size: 1rem;
   font-weight: 700;
   border-radius: 50%;
@@ -1146,7 +1146,7 @@ body, .container, .main, .content {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2.5px solid #fff;
+  border: 2.5px solid #00d474;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   z-index: 2;
   padding-right:7px;

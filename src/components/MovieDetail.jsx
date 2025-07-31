@@ -219,15 +219,15 @@ const MovieDetail = () => {
             {movie.title} ({new Date(movie.release_date).getFullYear()})
           </h1>
 
-          {/* General Info Strip */}
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            marginBottom: '2rem',
-            fontSize: '0.9rem',
-            color: '#00d474',
-            fontFamily: 'Arial, sans-serif'
-          }}>
+                                {/* General Info Strip */}
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              marginBottom: '2rem',
+              fontSize: '0.9rem',
+              color: '#ffffff',
+              fontFamily: 'Arial, sans-serif'
+            }}>
             <span>{movie.adult ? '18+' : '10+'}</span>
             <span>{formatDate(movie.release_date)} (TR)</span>
             <span>{genres}</span>
@@ -336,24 +336,24 @@ const MovieDetail = () => {
             }}>
               ☰
             </button>
-            <button 
-              onClick={handleFavoriteToggle}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                border: 'none',
-                background: '#1a1a2e',
-                color: isFavorite(movie.id) ? '#FFD700' : 'white',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.2rem'
-              }}
-            >
-              {isFavorite(movie.id) ? '♥' : '♡'}
-            </button>
+                         <button 
+               onClick={handleFavoriteToggle}
+               style={{
+                 width: '40px',
+                 height: '40px',
+                 borderRadius: '50%',
+                 border: 'none',
+                 background: '#1a1a2e',
+                 color: isFavorite(movie.id) ? '#FFD700' : 'white',
+                 cursor: 'pointer',
+                 display: 'flex',
+                 alignItems: 'center',
+                 justifyContent: 'center',
+                 fontSize: '1.2rem'
+               }}
+             >
+               {isFavorite(movie.id) ? '★' : '☆'}
+             </button>
             <button style={{
               width: '40px',
               height: '40px',
@@ -377,20 +377,29 @@ const MovieDetail = () => {
                 marginLeft: '2px'
               }}></div>
             </button>
-            <button style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.5rem 1rem',
-              borderRadius: '20px',
-              border: 'none',
-              background: '#1a1a2e',
-              color: 'white',
-              cursor: 'pointer',
-              fontSize: '1rem'
-            }}>
-              ▶️ Play Trailer
-            </button>
+                                                   <button style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                border: 'none',
+                outline: 'none',
+                background: 'transparent',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease'
+              }}>
+                <div style={{
+                  width: '0',
+                  height: '0',
+                  borderTop: '6px solid transparent',
+                  borderBottom: '6px solid transparent',
+                  borderLeft: '10px solid white',
+                  marginRight: '0.5rem'
+                }}></div>
+                Play Trailer
+              </button>
           </div>
 
           {/* Tagline */}
@@ -448,67 +457,183 @@ const MovieDetail = () => {
         marginTop: '2rem',
         borderRadius: '8px 8px 0 0'
       }}>
-        {/* Cast */}
-        {credits?.cast && credits.cast.length > 0 && (
-          <div>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1.2rem', color: '#333', fontFamily: 'Arial, sans-serif' }}>Cast</h3>
-            <div style={{
-              display: 'flex',
-              gap: '1rem',
-              overflowX: 'auto',
-              paddingBottom: '1rem'
-            }}>
-                             {credits.cast.slice(0, 10).map((actor) => (
-                 <div key={actor.id} style={{
-                   textAlign: 'center',
-                   minWidth: '140px',
-                   padding: '0',
-                   borderRadius: '12px',
-                   backgroundColor: 'white',
-                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                 {/* Cast */}
+         {credits?.cast && credits.cast.length > 0 && (
+           <div>
+             <h3 style={{ marginBottom: '1rem', fontSize: '1.2rem', color: '#333', fontFamily: 'Arial, sans-serif' }}>Cast</h3>
+             <div style={{
+               position: 'relative',
+               width: '100%',
+               overflow: 'hidden'
+             }}>
+               {/* Navigation Buttons */}
+               <button 
+                 onClick={() => {
+                   const container = document.getElementById('cast-slider');
+                   if (container) {
+                     container.scrollLeft -= 400;
+                   }
+                 }}
+                                                   style={{
+                   position: 'absolute',
+                   left: '0',
+                   top: '50%',
+                   transform: 'translateY(-50%)',
+                   zIndex: 10,
+                   width: '50px',
+                   height: '100%',
                    border: 'none',
-                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                   overflow: 'hidden'
-                 }}>
-                   <img 
-                     src={actor.profile_path 
-                       ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
-                       : 'https://via.placeholder.com/185x278?text=No+Image'
-                     }
-                     alt={actor.name}
-                     style={{
-                       width: '100%',
-                       height: '180px',
-                       borderRadius: '12px 12px 0 0',
-                       objectFit: 'cover',
-                       objectPosition: 'center 20%',
-                       marginBottom: '0',
-                       boxShadow: 'none'
-                     }}
-                   />
-                   <div style={{
-                     fontSize: '1rem',
-                     fontWeight: '600',
-                     marginBottom: '0.25rem',
-                     color: '#2c3e50',
-                     fontFamily: 'Arial, sans-serif',
-                     lineHeight: '1.2',
-                     padding: '0.75rem 0.75rem 0.5rem 0.75rem'
-                   }}>
-                     {actor.name}
-                   </div>
-                   <div style={{
-                     fontSize: '0.85rem',
-                     opacity: 0.8,
-                     color: '#7f8c8d',
-                     fontFamily: 'Arial, sans-serif',
-                     lineHeight: '1.3',
-                     padding: '0 0.75rem 0.75rem 0.75rem'
-                   }}>
-                     {actor.character}
-                   </div>
-                 </div>
-               ))}
+                   outline: 'none',
+                   background: 'linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, transparent 100%)',
+                   color: '#333',
+                   cursor: 'pointer',
+                   display: 'flex',
+                   alignItems: 'center',
+                   justifyContent: 'center',
+                   fontSize: '1.5rem',
+                   fontWeight: 'bold',
+                   transition: 'all 0.3s ease',
+                   opacity: 0.2
+                 }}
+                 
+               >
+                 ‹
+               </button>
+               
+               <button 
+                 onClick={() => {
+                   const container = document.getElementById('cast-slider');
+                   if (container) {
+                     container.scrollLeft += 400;
+                   }
+                 }}
+                                                   style={{
+                   position: 'absolute',
+                   right: '0',
+                   top: '50%',
+                   transform: 'translateY(-50%)',
+                   zIndex: 10,
+                   width: '50px',
+                   height: '100%',
+                   border: 'none',
+                   outline: 'none',
+                   background: 'linear-gradient(to left, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, transparent 100%)',
+                   color: '#333',
+                   cursor: 'pointer',
+                   display: 'flex',
+                   alignItems: 'center',
+                   justifyContent: 'center',
+                   fontSize: '1.5rem',
+                   fontWeight: 'bold',
+                   transition: 'all 0.3s ease',
+                   opacity: 0.8
+                 }}
+                 
+               >
+                 ›
+               </button>
+
+              {/* Cast Slider */}
+              <div 
+                id="cast-slider"
+                style={{
+                  display: 'flex',
+                  gap: '1rem',
+                  overflowX: 'auto',
+                  paddingBottom: '1rem',
+                  scrollBehavior: 'smooth',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none'
+                }}
+                                 onScroll={(e) => {
+                   // Hide/show navigation buttons based on scroll position
+                   const leftBtn = e.target.previousElementSibling?.previousElementSibling;
+                   const rightBtn = e.target.previousElementSibling;
+                   
+                   if (leftBtn) {
+                     leftBtn.style.opacity = e.target.scrollLeft > 0 ? '1' : '0.2';
+                   }
+                   if (rightBtn) {
+                     const maxScroll = e.target.scrollWidth - e.target.clientWidth;
+                     rightBtn.style.opacity = e.target.scrollLeft < maxScroll ? '1' : '0.2';
+                   }
+                 }}
+              >
+                {credits.cast.map((actor) => (
+                                     <div key={actor.id} style={{
+                     textAlign: 'center',
+                     minWidth: '140px',
+                     padding: '0',
+                     borderRadius: '12px',
+                     backgroundColor: 'white',
+                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                     border: 'none',
+                     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                     overflow: 'hidden',
+                     flexShrink: 0
+                   }}
+                  
+                  >
+                    <img 
+                      src={actor.profile_path 
+                        ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+                        : 'https://via.placeholder.com/185x278?text=No+Image'
+                      }
+                      alt={actor.name}
+                                             style={{
+                         width: '100%',
+                         height: '180px',
+                         borderRadius: '12px 12px 0 0',
+                         objectFit: 'cover',
+                         objectPosition: 'center 20%',
+                         marginBottom: '0',
+                         boxShadow: 'none'
+                       }}
+                    />
+                                         <div style={{
+                       fontSize: '1rem',
+                       fontWeight: '600',
+                       marginBottom: '0.25rem',
+                       color: '#2c3e50',
+                       fontFamily: 'Arial, sans-serif',
+                       lineHeight: '1.2',
+                       padding: '0.75rem 0.75rem 0.25rem 0.75rem'
+                     }}>
+                       {actor.name}
+                     </div>
+                     <div style={{
+                       fontSize: '0.9rem',
+                       opacity: 0.8,
+                       color: '#7f8c8d',
+                       fontFamily: 'Arial, sans-serif',
+                       lineHeight: '1.3',
+                       padding: '0 0.75rem 0.75rem 0.75rem'
+                     }}>
+                       {actor.character}
+                     </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Custom Scrollbar */}
+              <style>
+                {`
+                  #cast-slider::-webkit-scrollbar {
+                    height: 6px;
+                  }
+                  #cast-slider::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 3px;
+                  }
+                  #cast-slider::-webkit-scrollbar-thumb {
+                    background: #c1c1c1;
+                    border-radius: 3px;
+                  }
+                  #cast-slider::-webkit-scrollbar-thumb:hover {
+                    background: #a8a8a8;
+                  }
+                `}
+              </style>
             </div>
           </div>
         )}
