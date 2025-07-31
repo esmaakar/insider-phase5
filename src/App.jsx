@@ -13,6 +13,8 @@ import MoviesTopRatedNew from './components/MoviesTopRatedNew';
 import TVShowsPopularNew from './components/TVShowsPopularNew';
 import TVShowsAiringTodayNew from './components/TVShowsAiringTodayNew';
 import TVShowsTopRatedNew from './components/TVShowsTopRatedNew';
+import MovieDetail from './components/MovieDetail';
+import TVShowDetail from './components/TVShowDetail';
 
 const MoviesUpcoming = () => <div style={{padding:32}}><h2>Upcoming Movies</h2></div>;
 const MoviesTopRated = () => <div style={{padding:32}}><h2>Top Rated Movies</h2></div>;
@@ -165,6 +167,8 @@ function App() {
           <Route path="/tv/airing-today" element={<TVShowsAiringTodayNew />} />
           <Route path="/tv/on-tv" element={<TVShowsOnTV />} />
           <Route path="/tv/top-rated" element={<TVShowsTopRatedNew />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/tv/:id" element={<TVShowDetail />} />
         </Routes>
       </SimpleBar>
     </Router>

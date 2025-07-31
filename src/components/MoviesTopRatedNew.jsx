@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const MoviesTopRatedNew = () => {
   const [movies, setMovies] = useState([]);
@@ -654,61 +655,67 @@ const MoviesTopRatedNew = () => {
           gap: '1.5rem'
         }}>
           {displayMovies.map((movie) => (
-            <div key={movie.id} style={{
-              backgroundColor: '#fff',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              transition: 'transform 0.2s',
-              cursor: 'pointer'
-            }}>
-              <div style={{ position: 'relative' }}>
-                <img 
-                  src={movie.poster_path 
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                    : 'https://via.placeholder.com/300x450?text=No+Image'
-                  }
-                  alt={movie.title}
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '8px',
-                  left: '8px',
-                  backgroundColor: getRatingColor(Math.round(movie.vote_average * 10)),
-                  color: '#fff',
-                  borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '0.8rem',
-                  fontWeight: 'bold',
-                  border: '2px solid #fff'
-                }}>
-                  {Math.round(movie.vote_average * 10)}%
+            <Link 
+              to={`/movie/${movie.id}`}
+              key={movie.id}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div style={{
+                backgroundColor: '#fff',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                transition: 'transform 0.2s',
+                cursor: 'pointer'
+              }}>
+                <div style={{ position: 'relative' }}>
+                  <img 
+                    src={movie.poster_path 
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : 'https://via.placeholder.com/300x450?text=No+Image'
+                    }
+                    alt={movie.title}
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '8px',
+                    left: '8px',
+                    backgroundColor: getRatingColor(Math.round(movie.vote_average * 10)),
+                    color: '#fff',
+                    borderRadius: '50%',
+                    width: '40px',
+                    height: '40px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.8rem',
+                    fontWeight: 'bold',
+                    border: '2px solid #fff'
+                  }}>
+                    {Math.round(movie.vote_average * 10)}%
+                  </div>
+                </div>
+                <div style={{ padding: '1rem' }}>
+                  <h3 style={{ 
+                    fontSize: '1rem', 
+                    fontWeight: 'bold', 
+                    marginBottom: '0.5rem',
+                    color: '#333',
+                    lineHeight: '1.3'
+                  }}>
+                    {movie.title}
+                  </h3>
+                  <p style={{ 
+                    fontSize: '0.9rem', 
+                    color: '#666',
+                    margin: 0
+                  }}>
+                    {formatDate(movie.release_date)}
+                  </p>
                 </div>
               </div>
-              <div style={{ padding: '1rem' }}>
-                <h3 style={{ 
-                  fontSize: '1rem', 
-                  fontWeight: 'bold', 
-                  marginBottom: '0.5rem',
-                  color: '#333',
-                  lineHeight: '1.3'
-                }}>
-                  {movie.title}
-                </h3>
-                <p style={{ 
-                  fontSize: '0.9rem', 
-                  color: '#666',
-                  margin: 0
-                }}>
-                  {formatDate(movie.release_date)}
-                </p>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
         {/* Pagination */}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import { useFavorites } from '../context/FavoritesContext.jsx';
+import { Link } from 'react-router-dom';
 
 const TABS = [
   { key: "streaming", label: "Streaming" },
@@ -70,44 +71,54 @@ export default function PopularMenu() {
         {data[activeTab] &&
           <div style={{display: 'flex', flexDirection: 'row', gap: '1.2rem'}}>
             {data[activeTab].map((item) => (
-              <div className="popular-card" key={item.id}>
-                <div className="popular-card-poster-wrapper" style={{ position: 'relative' }}>
-                  <img
-                    src={
-                      item.poster_path
-                        ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
-                        : "https://via.placeholder.com/185x278?text=No+Image"
-                    }
-                    alt={item.title || item.name}
-                  />
-                  {/* Favori yıldız butonu */}
-                  <button
-                    onClick={() => isFavorite(item.id) ? removeFavorite(item.id) : addFavorite(item)}
-                    style={{
-                      position: 'absolute',
-                      top: -15,
-                      right: -15,
-                      background: 'none',
-                      border: 'none',
-                      outline: 'none',
-                      cursor: 'pointer',
-                      fontSize: 24,
-                      color: isFavorite(item.id) ? '#FFD700' : '#bbb',
-                      transition: 'color 0.2s',
-                      zIndex: 2
-                    }}
-                    aria-label={isFavorite(item.id) ? 'Favorilerden çıkar' : 'Favorilere ekle'}
-                  >
-                    {isFavorite(item.id) ? '★' : '☆'}
-                  </button>
-                  <div className={`popular-card-score ${Math.round((item.vote_average || 0) * 10) >= 70 ? 'score-green' : 'score-yellow'}`}>
-                    <span className="popular-card-score-number">{Math.round((item.vote_average || 0) * 10)}</span>
-                    <span className="popular-card-score-percent">%</span>
+              <Link 
+                to={item.media_type === 'tv' ? `/tv/${item.id}` : `/movie/${item.id}`}
+                key={item.id}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div className="popular-card" style={{ cursor: 'pointer' }}>
+                  <div className="popular-card-poster-wrapper" style={{ position: 'relative' }}>
+                    <img
+                      src={
+                        item.poster_path
+                          ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
+                          : "https://via.placeholder.com/185x278?text=No+Image"
+                      }
+                      alt={item.title || item.name}
+                    />
+                    {/* Favori yıldız butonu */}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        isFavorite(item.id) ? removeFavorite(item.id) : addFavorite(item);
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: -15,
+                        right: -15,
+                        background: 'none',
+                        border: 'none',
+                        outline: 'none',
+                        cursor: 'pointer',
+                        fontSize: 24,
+                        color: isFavorite(item.id) ? '#FFD700' : '#bbb',
+                        transition: 'color 0.2s',
+                        zIndex: 2
+                      }}
+                      aria-label={isFavorite(item.id) ? 'Favorilerden çıkar' : 'Favorilere ekle'}
+                    >
+                      {isFavorite(item.id) ? '★' : '☆'}
+                    </button>
+                    <div className={`popular-card-score ${Math.round((item.vote_average || 0) * 10) >= 70 ? 'score-green' : 'score-yellow'}`}>
+                      <span className="popular-card-score-number">{Math.round((item.vote_average || 0) * 10)}</span>
+                      <span className="popular-card-score-percent">%</span>
+                    </div>
                   </div>
+                  <div className="popular-card-title">{item.title || item.name}</div>
+                  <div className="popular-card-date">{formatDate(item.release_date || item.first_air_date)}</div>
                 </div>
-                <div className="popular-card-title">{item.title || item.name}</div>
-                <div className="popular-card-date">{formatDate(item.release_date || item.first_air_date)}</div>
-              </div>
+              </Link>
             ))}
           </div>
         }
