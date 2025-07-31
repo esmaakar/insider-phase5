@@ -248,7 +248,7 @@ const TVShowDetail = () => {
               alignItems: 'center',
               gap: '1rem'
             }}>
-              <div style={{
+                            <div style={{
                 width: '60px',
                 height: '60px',
                 borderRadius: '50%',
@@ -263,7 +263,12 @@ const TVShowDetail = () => {
                 position: 'relative'
               }}>
                 <span style={{ fontSize: '1.4rem', fontWeight: 'bold' }}>{Math.round(show.vote_average * 10)}</span>
-                <span style={{ fontSize: '0.8rem', position: 'absolute', top: '8px', right: '8px' }}>%</span>
+                <span style={{
+                  fontSize: '0.8rem',
+                  position: 'absolute',
+                  top: '8px',
+                  right: '8px'
+                }}>%</span>
               </div>
               <span style={{ fontSize: '1.1rem', color: '#ffffff', fontFamily: 'Arial, sans-serif' }}>User Score</span>
             </div>

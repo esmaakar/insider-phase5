@@ -691,9 +691,16 @@ const MoviesTopRatedNew = () => {
                     justifyContent: 'center',
                     fontSize: '0.8rem',
                     fontWeight: 'bold',
-                    border: '2px solid #fff'
+                    border: '2px solid #fff',
+                    position: 'relative'
                   }}>
-                    {Math.round(movie.vote_average * 10)}%
+                                            <span>{Math.round(movie.vote_average * 10)}</span>
+                        <span style={{
+                          position: 'absolute',
+                          top: '2px',
+                          right: '2px',
+                          fontSize: '0.6rem'
+                        }}>%</span>
                   </div>
                 </div>
                 <div style={{ padding: '1rem' }}>

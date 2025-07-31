@@ -308,8 +308,30 @@ const TVShowsTopRatedNew = () => {
               <div style={{ backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', transition: 'transform 0.2s', cursor: 'pointer' }}>
                 <div style={{ position: 'relative' }}>
                   <img src={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : 'https://via.placeholder.com/300x450?text=No+Image'} alt={show.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                  <div style={{ position: 'absolute', bottom: '8px', left: '8px', backgroundColor: getRatingColor(Math.round(show.vote_average * 10)), color: '#fff', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 'bold', border: '2px solid #fff' }}>
-                    {Math.round(show.vote_average * 10)}%
+                  <div style={{ 
+                    position: 'absolute', 
+                    bottom: '8px', 
+                    left: '8px', 
+                    backgroundColor: getRatingColor(Math.round(show.vote_average * 10)), 
+                    color: '#fff', 
+                    borderRadius: '50%', 
+                    width: '40px', 
+                    height: '40px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    fontSize: '0.8rem', 
+                    fontWeight: 'bold', 
+                    border: '2px solid #fff',
+                    position: 'relative'
+                  }}>
+                                            <span>{Math.round(show.vote_average * 10)}</span>
+                        <span style={{
+                          position: 'absolute',
+                          top: '2px',
+                          right: '2px',
+                          fontSize: '0.6rem'
+                        }}>%</span>
                   </div>
                 </div>
                 <div style={{ padding: '1rem' }}>
